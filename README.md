@@ -16,3 +16,4 @@
 ![image](https://github.com/Kouichi1229/-Spodoptera-frugiperda-analyze/blob/main/%E7%89%B9%E5%BE%B5%E8%A1%A8%E7%A4%BA.png?raw=true)
 
 
+[PPT](https://docs.google.com/presentation/d/1N8tuPnfiaZLO6CAI4XkS3bpuOgPriH0d/edit?usp=sharing&ouid=102938102531618732336&rtpof=true&sd=true)
