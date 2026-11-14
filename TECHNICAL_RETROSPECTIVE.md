@@ -114,32 +114,39 @@ Notebook 使用 InceptionV3 與 TensorFlow GradientTape：
 
 ## 6. Flask 推論 Web App（關聯 Repository）
 
-另一個 Repository：[`Classification_webapp`](https://github.com/Kouichi1229/Classification_webapp)
+關聯 Repository：[Classification_webapp](https://github.com/Kouichi1229/Classification_webapp)
 
-其 `Spodopterafrugiperda_app.py` 可確認：
+已從該 Repository 的 Git commit 歷史確認 Spodopterafrugiperda_app.py 的 Flask 程式，以及三個 H5 模型檔案曾經提交至版本庫。由於目前透過檔案 API 無法穩定讀取該 Repository 的完整最新檔案樹，以下描述以可讀取的歷史 commit 內容為依據，不推定目前部署狀態。
 
-- 使用 Flask 建立 Web 應用。
-- 以路由提供 InceptionV3、VGG19、DenseNet201 頁面。
-- 以 POST 接收使用者上傳的圖片。
-- 使用 `secure_filename` 處理上傳檔名，暫存圖片。
-- 使用 TensorFlow Keras `load_model()` 載入 H5 模型。
-- 使用 PIL 開啟及調整影像尺寸，轉成 NumPy array 後送入模型。
-- 將模型預測索引轉成四種害蟲名稱。
-- 推論後刪除暫存圖片。
-- Procfile 使用 Gunicorn 啟動 Flask app。
+程式可確認的功能：
 
-因此，整體專案不只有模型訓練 Notebook，也曾將模型包裝成可上傳圖片並回傳分類結果的 Web 推論應用。
+- 使用 Flask 建立 Web 應用，提供首頁、VGG19 與 DenseNet201 頁面路由；首頁回傳 InceptionV3 頁面。
+- 提供 /predictVGG19、/predictInceptionV3、/predictDenseNet201 三個 POST 推論路由。
+- 接收上傳圖片，使用 Werkzeug secure_filename() 處理檔名並儲存暫存檔。
+- 使用 TensorFlow Keras load_model() 載入 H5 模型，PIL 調整影像大小，NumPy 組成模型輸入。
+- 使用 predict_classes() 取得預測類別，再透過類別字典轉換成四種害蟲名稱。
+- 推論完成後呼叫 os.remove() 刪除暫存圖片。
+- Procfile 設定以 Gunicorn 啟動 Spodopterafrugiperda_app:app。
+- 版本庫歷史曾包含 VGG19_BUG.h5、InceptionV3_bug.h5、DenseNet201_bug.h5 三個模型檔案（以 Git LFS pointer 記錄）。
+
+可追溯的程式版本：
+- [Flask app 初始程式 commit](https://github.com/Kouichi1229/Classification_webapp/commit/a44b79616fecfebd2e595430cbd78a65c4663381)
+- [模型檔案加入版本庫的 commit](https://github.com/Kouichi1229/Classification_webapp/commit/510ba70a1a3a04637a7b9477fa8d51fbcb899084)
+- [調整推論影像尺寸的 commit](https://github.com/Kouichi1229/Classification_webapp/commit/b0321f0525a6733335b5c86682a50453837fdc64)
 
 ### 推論端需要留意的歷史程式風險
 
-以下是原始碼檢視發現的問題，不代表已在當年部署環境實際發生：
+以下是靜態檢視程式與 commit 差異後發現的問題，不代表已在當年部署環境實際發生：
 
-1. **前處理可能不一致：** 訓練 Notebook 的影像產生器使用 `rescale=1./255.`；Flask 推論函式目前只調整影像尺寸並轉成 NumPy array，未看到相同的 rescale。若模型確實使用該 Notebook 訓練，輸入尺度可能不一致。
-2. **類別索引可能不一致：** InceptionV3 Notebook 的 `class_indices` 輸出順序為 Helicoverpa armigera、Spodoptera exigua、Spodoptera frugiperda、Spodoptera litura；Flask app 的 `classes` 字典順序則不同。若兩者對應同一模型，推論標籤可能錯置。必須核對實際模型訓練時的 class_indices 才能定論。
-3. **模型每次請求重新載入：** 三個影像處理函式都在函式內呼叫 `load_model()`，可能造成每次推論都重新載入模型，增加延遲與資源消耗。
-4. **舊版 API：** `predict_classes()` 已不適用於新版 Keras／TensorFlow，現代實作通常改用 `predict()` 搭配 `argmax`。
-5. **上傳處理韌性：** 暫存檔刪除沒有包在 `try/finally`，若預測中途失敗，檔案可能殘留；影像也沒有明確轉為 RGB。
-6. **部署安全：** 程式使用 `debug=True`，不適合直接用於正式生產環境。檔案大小、格式與內容也應增加驗證。
+1. **推論尺寸曾被修改，且與 Notebook 設定存在落差：** 初始 Flask 程式使用 VGG19 30×30、InceptionV3 150×150、DenseNet201 30×30；後續 commit 將三者改為 VGG19 224×224、InceptionV3 229×229、DenseNet201 224×224。已核對的 Notebook 設定則為 VGG19 224×224、InceptionV3 150×150。VGG19 後續尺寸與 Notebook 相符，但 InceptionV3 後續尺寸 229×229 與 Notebook 的 150×150 不同；DenseNet201 尚無已核對的訓練 Notebook 可供比對。這表示推論前處理版本需要再與實際 H5 模型核對，不能直接假設完全一致。
+2. **像素縮放可能不一致：** 已核對的 Notebook 訓練資料產生器使用 rescale=1./255.；Flask app 讀取影像、調整尺寸後直接轉為 NumPy array，沒有看到相同的 rescale。若模型確實由該 Notebook 流程訓練，輸入尺度可能不一致。
+3. **類別索引可能不一致：** InceptionV3 Notebook 的 class_indices 輸出順序為 Helicoverpa armigera、Spodoptera exigua、Spodoptera frugiperda、Spodoptera litura；Flask app 的類別字典順序為 Spodoptera frugiperda、Spodoptera litura、Helicoverpa armigera、Spodoptera exigua。若 Flask 載入的模型使用前述 Notebook 的類別索引，推論標籤可能錯置；仍須以實際模型訓練時的類別映射確認。
+4. **模型每次請求重新載入：** 三個影像處理函式都在函式內呼叫 load_model()，可能造成每次推論都重新載入模型，增加延遲與資源消耗。
+5. **使用舊版 Keras API：** 程式使用 predict_classes()；此 API 在較新的 Keras 版本已不再適用，現代實作通常改用 predict() 搭配 argmax。
+6. **上傳處理韌性不足：** 暫存檔刪除沒有包在 try/finally，若預測中途失敗，檔案可能殘留；程式也沒有明確將圖片轉為 RGB。
+7. **部署安全與驗證：** 程式以 debug=True 啟動 Flask，且未見完整的上傳檔案大小、格式及內容驗證，不宜直接視為已具備生產環境部署安全性。
+
+**能力描述界線：** 可確認曾實作 Flask 圖片上傳、H5 模型載入與多模型推論路由；目前不能據此宣稱三個模型都已完成正確的端到端驗證，亦不能宣稱 Web App 現在仍可正常部署。
 
 ## 7. 個人技術經歷的合理定位
 
