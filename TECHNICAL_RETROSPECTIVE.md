@@ -11,7 +11,7 @@
 3. 番茄夜蛾（Helicoverpa armigera）
 4. 甜菜夜蛾（Spodoptera exigua）
 
-Repository README 將專案描述為以 Keras API 進行台灣害蟲影像分類。Notebook 使用 Google Colab 與 Google Drive 載入資料，訓練並儲存模型。
+Repository README 將專案描述為以 Keras API 進行台灣害蟲影像分類，原始標題另列出 VGG19、ResNet152V2、InceptionResNetV3、DenseNet201 與 NASNetLarge 等架構名稱。不過，本次已逐段核對的 Notebook 證據主要確認 VGG19 與 InceptionV3；其餘架構目前不列為已完成實作能力，除非後續找到對應程式或模型檔佐證。Notebook 使用 Google Colab 與 Google Drive 載入資料，訓練並儲存模型。
 
 ## 2. 專案可證明的技術能力
 
@@ -19,7 +19,7 @@ Repository README 將專案描述為以 Keras API 進行台灣害蟲影像分類
 |---|---|---|
 | Python 深度學習開發 | Jupyter Notebook、TensorFlow/Keras 程式 | 曾使用 Python 建立影像分類訓練流程 |
 | CNN 預訓練模型 | VGG19、InceptionV3 | 使用 ImageNet 預訓練 CNN 作為特徵抽取骨幹 |
-| 遷移學習 | 將預訓練模型層設為 `trainable=False)，接上自訂分類層 | 具備 Transfer Learning 基礎實作經驗 |
+| 遷移學習 | 將預訓練模型層設為 `trainable=False`，接上自訂分類層 | 具備 Transfer Learning 基礎實作經驗 |
 | 影像資料前處理 | 影像尺寸調整、像素縮放、ImageDataGenerator | 曾處理影像尺寸與訓練資料增強 |
 | 多類別分類 | 四個類別、Softmax 輸出、categorical crossentropy | 曾建立四分類影像分類模型 |
 | 模型訓練 | RMSprop、batch generator、epochs、model.fit | 曾執行模型訓練並觀察 loss／accuracy |
