@@ -127,6 +127,7 @@ Notebook 使用 InceptionV3 與 TensorFlow GradientTape：
 - 使用 predict_classes() 取得預測類別，再透過類別字典轉換成四種害蟲名稱。
 - 推論完成後呼叫 os.remove() 刪除暫存圖片。
 - Procfile 設定以 Gunicorn 啟動 Spodopterafrugiperda_app:app。
+- requirements.txt 記錄的歷史環境包含 Flask 1.1.2、TensorFlow GPU 2.5.0 RC、Keras 2.4.3、NumPy 1.19.5、Pillow 8.2.0 與 Gunicorn 20.1.0；這是版本庫中的依賴清單，不代表目前已在新環境成功重建。
 - 版本庫歷史曾包含 VGG19_BUG.h5、InceptionV3_bug.h5、DenseNet201_bug.h5 三個模型檔案（以 Git LFS pointer 記錄）。
 
 可追溯的程式版本：
