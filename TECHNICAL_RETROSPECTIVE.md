@@ -11,7 +11,7 @@
 3. 番茄夜蛾（Helicoverpa armigera）
 4. 甜菜夜蛾（Spodoptera exigua）
 
-Repository README 將專案描述為以 Keras API 進行台灣害蟲影像分類，原始標題另列出 VGG19、ResNet152V2、InceptionResNetV3、DenseNet201 與 NASNetLarge 等架構名稱。不過，本次已逐段核對的 Notebook 證據主要確認 VGG19 與 InceptionV3；其餘架構目前不列為已完成實作能力，除非後續找到對應程式或模型檔佐證。Notebook 使用 Google Colab 與 Google Drive 載入資料，訓練並儲存模型。
+Repository README 將專案描述為以 Keras API 進行台灣害蟲影像分類，原始標題另列出 VGG19、ResNet152V2、InceptionResNetV3、DenseNet201 與 NASNetLarge 等架構名稱。不過，本次已逐段核對的訓練 Notebook 證據主要確認 VGG19 與 InceptionV3。關聯 Flask Repository 的歷史版本另有 DenseNet201 H5 模型檔案，但目前未找到可核對其訓練流程的 Notebook，因此只記錄為曾存在模型檔案，不將它等同於已驗證的完整訓練成果；ResNet152V2、InceptionResNetV3 與 NASNetLarge 也不列為已核實實作。Notebook 使用 Google Colab 與 Google Drive 載入資料，訓練並儲存模型。
 
 ## 2. 專案可證明的技術能力
 
