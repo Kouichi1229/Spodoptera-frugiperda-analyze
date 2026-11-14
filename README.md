@@ -21,11 +21,11 @@
 
 ## 執行成果與視覺化
 
-![模型訓練結果](https://github.com/Kouichi1229/-Spodoptera-frugiperda-analyze/blob/main/%E9%82%B1%E8%A1%8C%E8%BB%8D%E9%87%8D%E6%A8%A1%E5%9E%8B%E8%B7%91%E5%88%86.png?raw=true)
+![模型訓練結果](https://github.com/Kouichi1229/Spodoptera-frugiperda-analyze/blob/main/%E9%82%B1%E8%A1%8C%E8%BB%8D%E9%87%8D%E6%A8%A1%E5%9E%8B%E8%B7%91%E5%88%86.png?raw=true)
 
-![Grad-CAM 熱感圖](https://github.com/Kouichi1229/-Spodoptera-frugiperda-analyze/blob/main/IV3VGG19%E7%86%B1%E6%84%9F%E5%9C%96.png?raw=true)
+![Grad-CAM 熱感圖](https://github.com/Kouichi1229/Spodoptera-frugiperda-analyze/blob/main/IV3VGG19%E7%86%B1%E6%84%9F%E5%9C%96.png?raw=true)
 
-![特徵視覺化](https://github.com/Kouichi1229/-Spodoptera-frugiperda-analyze/blob/main/%E7%89%B9%E5%BE%B5%E8%A1%A8%E7%A4%BA.png?raw=true)
+![特徵視覺化](https://github.com/Kouichi1229/Spodoptera-frugiperda-analyze/blob/main/%E7%89%B9%E5%BE%B5%E8%A1%A8%E7%A4%BA.png?raw=true)
 
 ## 技術經歷回顧
 
