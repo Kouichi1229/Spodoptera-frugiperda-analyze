@@ -17,3 +17,8 @@
 
 
 [PPT](https://docs.google.com/presentation/d/1N8tuPnfiaZLO6CAI4XkS3bpuOgPriH0d/edit?usp=sharing&ouid=102938102531618732336&rtpof=true&sd=true)
+
+
+## 技術經歷回顧
+
+本專案的模型訓練流程、遷移學習、影像增強、Grad-CAM、分類評估限制，以及關聯 Flask 推論應用，整理於 [TECHNICAL_RETROSPECTIVE.md](TECHNICAL_RETROSPECTIVE.md)。
